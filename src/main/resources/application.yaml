@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: backend2_05
+
+web:
+  userService:
+    register:
+      usernameMinLength: 2
+      usernameMaxLength: 8
+      passwordMinLength: 6
+      passwordMaxLength: 12
