@@ -16,11 +16,9 @@ public class Result<T> {//使用泛型
         return new Result<>(200, "响应成功", data);
     }
     //不带数据返回成功操作
-    public static <E> Result<E> success(String msg) {
-        return new Result<>(200, msg, null);
-    }
+    public static  Result<?> success(String msg) {return new Result<>(200, msg, null);}
     //不带数据返回失败
-    public static <E> Result<E> error(Integer code, String msg){
+    public static Result<?> error(Integer code, String msg){
         return new Result<>(code, msg, null);
     }
 }

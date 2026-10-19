@@ -20,7 +20,7 @@ public class UserController {
 
     //登录
     @PostMapping("/login")
-    public Result<User> login(
+    public Result<?> login(
             @RequestParam
             @NotBlank(message = "用户名或密码不能为空")
             String username,

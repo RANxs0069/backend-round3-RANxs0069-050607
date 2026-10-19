@@ -1,16 +1,13 @@
 package org.example.service.impl;
 
-import cn.hutool.crypto.SecureUtil;
 import org.example.common.UserServiceResult;
-import org.example.repository.impl.UserMapRepositoryImpl;
+import org.example.repository.UserRepository;
 import org.example.model.User;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 //这是Service接口的实现类
@@ -26,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private int usernameMaxLength;
 
     @Autowired
-    private UserMapRepositoryImpl userMapRepositoryImpl;
+    private UserRepository userRepository;
     @Autowired//不用直接import的而是自己写一个不同名的配置类，方便换接口的实现类还可以实现自动注入
     private PasswordEncoder passwordEncoder;
 
@@ -41,7 +38,7 @@ public class UserServiceImpl implements UserService {
             return new UserServiceResult(400, "用户名或密码错误", null);
         //通过检测登录成功
         }else{
-            return new UserServiceResult(200, "登录成功", null);
+            return new UserServiceResult(200, "Success", null);
         }
     }
 
@@ -65,12 +62,12 @@ public class UserServiceImpl implements UserService {
         //用passwordEncoder接口定义的方法存散列
         newUser.setPassword(passwordEncoder.encode(password));
         //装到集合中
-        userMapRepositoryImpl.addUser(newUser.getUsername(), newUser);
+        userRepository.addUser(newUser.getUsername(), newUser);
         return new UserServiceResult(200, "注册成功", null);
     }
 
     private User checkForUsers(String username){
-        return userMapRepositoryImpl.checkForUsers(username);
+        return userRepository.checkForUsers(username);
     }
 
 }
